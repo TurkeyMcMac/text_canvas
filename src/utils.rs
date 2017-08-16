@@ -68,9 +68,7 @@ impl CanvasUtils for Canvas {
 
                         current_x += 1;
                         
-                        if self.width <= current_x {
-                            in_bounds = false;
-                        }
+                        in_bounds = self.width > current_x;
                     }
                 }
             }
