@@ -39,16 +39,18 @@ impl Canvas {
     pub unsafe fn get_unchecked_mut(&mut self, x: usize, y: usize) -> &mut Pixel {
         self.pixels.get_unchecked_mut(y * self.width + x)
     }
+
+    pub fn view(&self, x: usize, y: usize, width: usize, height: usize) -> String {
+        self.pixels.chunks(self.width).skip(y).take(height)
+            .map(|chunk| chunk.iter().skip(x).take(width).map(|pixel| pixel.to_string()).collect::<String>())
+            .map(|row| format!("{}{}[0m\n", row, 27 as char))
+            .collect::<String>()
+    }
 }
 
 impl fmt::Display for Canvas {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}",
-            self.pixels.chunks(self.width)
-                .map(|chunk| chunk.iter().map(|pixel| pixel.to_string()).collect::<String>())
-                .map(|row| format!("{}{}[0m\n", row, 27 as char))
-                .collect::<String>()
-        )
+        write!(f, "{}", self.view(0, 0, self.width, self.height))
     }
 }
 
