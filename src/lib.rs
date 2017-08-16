@@ -1,5 +1,21 @@
 pub mod utils;
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use super::utils::*;
+    use ColorCode::*;
+
+    #[test]
+    fn demonstration() {
+        let mut can = Canvas::new(10, 10, pix('-', Red, Blue));
+
+        can.text("foohfjhfdjhf54rtgttrtgtr\nbar\nxyzzy\rbaz", 1, 1, Color::new(Green, Black));
+
+        println!("{}", can);
+    }
+}
+
 use std::fmt;
 
 pub struct Canvas {
