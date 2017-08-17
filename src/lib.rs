@@ -10,6 +10,10 @@ mod tests {
     fn demonstration() {
         let mut can = Canvas::new(10, 10, pix('-', Red, Blue));
 
+        println!("{}", can);
+       
+        can.fill(pix('"', Yellow, Green));
+
         can.text("foohfjhfdjhf54rtgttrtgtr\nbar\nxyzzy\rbaz", 1, 1, Color::new(Green, Black));
 
         println!("{}", can);
@@ -61,6 +65,12 @@ impl Canvas {
             .map(|chunk| chunk.iter().skip(x).take(width).map(|pixel| pixel.to_string()).collect::<String>())
             .map(|row| format!("{}{}[0m\n", row, 27 as char))
             .collect::<String>()
+    }
+
+    pub fn fill(&mut self, filler: Pixel) {
+        for pixel in self.pixels.iter_mut() {
+            *pixel = filler;
+        }
     }
 }
 
