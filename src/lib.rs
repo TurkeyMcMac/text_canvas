@@ -14,6 +14,8 @@ mod tests {
        
         can.fill(pix('"', Yellow, Green));
 
+        can.dot(3, 4, pix('*', Red, Green));
+
         can.text("foohfjhfdjhf54rtgttrtgtr\nbar\nxyzzy\rbaz", 1, 1, Color::new(Green, Black));
 
         println!("{}", can);

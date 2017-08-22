@@ -1,6 +1,16 @@
 use super::*;
 
 impl CanvasUtils for Canvas {
+    unsafe fn dot_unchecked(&mut self, x: usize, y: usize, pixel: Pixel) {
+        *self.get_unchecked_mut(x, y) = pixel;
+    }
+
+    fn dot(&mut self, x: usize, y: usize, pixel: Pixel) {
+        if let Some(p) = self.get_mut(x, y) {
+            *p = pixel;
+        }
+    }
+
     unsafe fn rect_unchecked(&mut self, x: usize, y: usize, width: usize, height: usize, filler: Pixel) {
         for x in x..x + width {
             for y in y..y + height {
@@ -77,6 +87,10 @@ impl CanvasUtils for Canvas {
 }
 
 pub trait CanvasUtils {
+    unsafe fn dot_unchecked(&mut self, x: usize, y: usize, pixel: Pixel);
+
+    fn dot(&mut self, x: usize, y: usize, pixel: Pixel);
+    
     unsafe fn rect_unchecked(&mut self, x: usize, y: usize, width: usize, height: usize, filler: Pixel);
     
     fn rect(&mut self, x: usize, y: usize, width: usize, height: usize, filler: Pixel);
