@@ -10,13 +10,26 @@ mod tests {
     fn demonstration() {
         let mut can = Canvas::new(10, 10, pix('-', Red, Blue));
 
-        println!("{}", can);
+        println!("\n{}", can);
        
         can.fill(pix('"', Yellow, Green));
 
         can.text("foohfjhfdjhf54rtgttrtgtr\nbar\nxyzzy\rbaz", 1, 1, Color::new(Green, Black));
 
         println!("{}", can);
+    }
+
+    #[test]
+    fn getting_works() {
+        let can = Canvas::new(10, 10, pix('-', Red, Blue));
+        
+        assert!(can.get(9, 9).is_some());
+
+        assert!(can.get(10, 10).is_none());
+
+        assert!(can.get(10, 9).is_none());
+
+        assert!(can.get(9, 10).is_none());
     }
 }
 
@@ -38,7 +51,9 @@ impl Canvas {
 
     pub fn get(&self, x: usize, y: usize) -> Option<&Pixel> {
         if x < self.width && y < self.height {
-            self.pixels.get(y * self.width + x)
+            Some(unsafe {
+                self.pixels.get_unchecked(y * self.width + x)
+            })
         } else {
             None
         }
@@ -46,7 +61,9 @@ impl Canvas {
 
     pub fn get_mut(&mut self, x: usize, y: usize) -> Option<&mut Pixel> {
         if x < self.width && y < self.height {
-            self.pixels.get_mut(y * self.width + x)
+            Some(unsafe {
+                self.pixels.get_unchecked_mut(y * self.width + x)
+            })
         } else {
             None
         }
