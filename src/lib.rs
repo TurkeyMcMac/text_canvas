@@ -16,7 +16,9 @@ mod tests {
 
         can.dot(3, 4, pix('*', Red, Green));
 
-        can.text("foohfjhfdjhf54rtgttrtgtr\nbar\nxyzzy\rbaz", 1, 1, Color::new(Green, Black));
+        can.text("foohfjhfdjhf54rtgttrtgtr\nbar\nxyzzy\rbaz", 1, 1, Color::new(Green, Black), true);
+
+        can.text("a\nb\nc", 0, 5, Color::new(Yellow, Green), false);
 
         println!("{}", can);
     }

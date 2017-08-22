@@ -33,13 +33,16 @@ impl CanvasUtils for Canvas {
         }
     }
     
-    unsafe fn text_unchecked(&mut self, text: &str, x: usize, y: usize, color: Color) {
+    unsafe fn text_unchecked(&mut self, text: &str, x: usize, y: usize, color: Color, cr_lf: bool) {
         let mut current_x = x; let mut current_y = y;
         
         for letter in text.chars() {
             match letter {
                 '\n' => {
-                    current_x = x;
+                    if cr_lf {
+                        current_x = x;
+                    }
+
                     current_y += 1;
                 },
                 '\r' => {
@@ -54,7 +57,7 @@ impl CanvasUtils for Canvas {
         }
     }
 
-    fn text(&mut self, text: &str, x: usize, y: usize, color: Color) {
+    fn text(&mut self, text: &str, x: usize, y: usize, color: Color, cr_lf: bool) {
         let mut current_x = x; let mut current_y = y;
         
         let mut in_bounds = x < self.width && y < self.height;
@@ -62,7 +65,10 @@ impl CanvasUtils for Canvas {
         for letter in text.chars() {
             match letter {
                 '\n' => {
-                    current_x = x;
+                    if cr_lf {
+                        current_x = x;
+                    }
+
                     current_y += 1;
                     in_bounds = current_x < self.width && current_y < self.height;
                 },
@@ -95,7 +101,7 @@ pub trait CanvasUtils {
     
     fn rect(&mut self, x: usize, y: usize, width: usize, height: usize, filler: Pixel);
 
-    unsafe fn text_unchecked(&mut self, text: &str, x: usize, y: usize, color: Color);
+    unsafe fn text_unchecked(&mut self, text: &str, x: usize, y: usize, color: Color, cr_lf: bool);
     
-    fn text(&mut self, text: &str, x: usize, y: usize, color: Color);
+    fn text(&mut self, text: &str, x: usize, y: usize, color: Color, cr_lf: bool);
 }
