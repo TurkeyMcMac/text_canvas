@@ -84,7 +84,7 @@ impl Canvas {
     pub fn view(&self, x: usize, y: usize, width: usize, height: usize) -> String {
         self.pixels.chunks(self.width).skip(y).take(height)
             .map(|chunk| chunk.iter().skip(x).take(width).map(|pixel| pixel.to_string()).collect::<String>())
-            .map(|row| format!("{}{}[0m\n", row, 27 as char))
+            .map(|row| format!("{}\u{001B}[0m\n", row))
             .collect::<String>()
     }
 
@@ -132,15 +132,15 @@ pub struct Color {
 impl Color {
     pub fn new(foreground: ColorCode, background: ColorCode) -> Color {
         Color {
-            foreground: foreground.code() + 30,
-            background: background.code() + 40,
+            foreground: foreground.code(),
+            background: background.code(),
         }
     }
 }
 
 impl fmt::Display for Color {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}[{};{}m", 27 as char, self.foreground, self.background)
+        write!(f, "\u{001B}[3{};4{}m", self.foreground as char, self.background as char)
     }
 }
 
@@ -152,14 +152,14 @@ pub enum ColorCode {
 impl ColorCode {
     fn code(self) -> u8 {
         match self {
-            ColorCode::Black   => 0,
-            ColorCode::Red     => 1,
-            ColorCode::Green   => 2,
-            ColorCode::Yellow  => 3,
-            ColorCode::Blue    => 4,
-            ColorCode::Magenta => 5,
-            ColorCode::Cyan    => 6,
-            ColorCode::White   => 7,
+            ColorCode::Black   => b'0',
+            ColorCode::Red     => b'1',
+            ColorCode::Green   => b'2',
+            ColorCode::Yellow  => b'3',
+            ColorCode::Blue    => b'4',
+            ColorCode::Magenta => b'5',
+            ColorCode::Cyan    => b'6',
+            ColorCode::White   => b'7',
         }
     }
 }
