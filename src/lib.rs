@@ -37,18 +37,18 @@ impl Canvas {
     }
 
     pub fn get(&self, x: usize, y: usize) -> Option<&Pixel> {
-        if x > self.width || y > self.height {
-            None
-        } else {
+        if x < self.width && y < self.height {
             self.pixels.get(y * self.width + x)
+        } else {
+            None
         }
     }
 
     pub fn get_mut(&mut self, x: usize, y: usize) -> Option<&mut Pixel> {
-        if x > self.width || y > self.height {
-            None
-        } else {
+        if x < self.width && y < self.height {
             self.pixels.get_mut(y * self.width + x)
+        } else {
+            None
         }
     }
     
