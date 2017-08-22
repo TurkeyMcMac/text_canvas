@@ -4,28 +4,28 @@ pub mod utils;
 mod tests {
     use super::*;
     use super::utils::*;
-    use ColorCode::*;
+    use colors::*;
 
     #[test]
     fn demonstration() {
-        let mut can = Canvas::new(10, 10, pix('-', Red, Blue));
+        let mut can = Canvas::new(10, 10, pix('-', RED, BLUE));
 
         println!("\n{}", can);
        
-        can.fill(pix('"', Yellow, Green));
+        can.fill(pix('"', YELLOW, GREEN));
 
-        can.dot(3, 4, pix('*', Red, Green));
+        can.dot(3, 4, pix('*', RED, GREEN));
 
-        can.text("foohfjhfdjhf54rtgttrtgtr\nbar\nxyzzy\rbaz", 1, 1, Color::new(Green, Black), true);
+        can.text("foohfjhfdjhf54rtgttrtgtr\nbar\nxyzzy\rbaz", 1, 1, Color::new(GREEN, BLACK), true);
 
-        can.text("a\nb\nc", 0, 5, Color::new(Yellow, Green), false);
+        can.text("a\nb\nc", 0, 5, Color::new(YELLOW, GREEN), false);
 
         println!("{}", can);
     }
 
     #[test]
     fn getting_works() {
-        let can = Canvas::new(10, 10, pix('-', Red, Blue));
+        let can = Canvas::new(10, 10, pix('-', RED, BLUE));
         
         assert!(can.get(9, 9).is_some());
 
@@ -119,7 +119,7 @@ impl fmt::Display for Pixel {
     }
 }
 
-pub fn pix(icon: char, foreground: ColorCode, background: ColorCode) -> Pixel {
+pub fn pix(icon: char, foreground: u8, background: u8) -> Pixel {
     Pixel { icon, color: Color::new(foreground, background) }
 }
 
@@ -130,10 +130,10 @@ pub struct Color {
 }
 
 impl Color {
-    pub fn new(foreground: ColorCode, background: ColorCode) -> Color {
+    pub fn new(foreground: u8, background: u8) -> Color {
         Color {
-            foreground: foreground.code(),
-            background: background.code(),
+            foreground: foreground,
+            background: background,
         }
     }
 }
@@ -149,18 +149,13 @@ pub enum ColorCode {
     Black, Red, Green, Yellow, Blue, Magenta, Cyan, White,
 }
 
-impl ColorCode {
-    fn code(self) -> u8 {
-        match self {
-            ColorCode::Black   => b'0',
-            ColorCode::Red     => b'1',
-            ColorCode::Green   => b'2',
-            ColorCode::Yellow  => b'3',
-            ColorCode::Blue    => b'4',
-            ColorCode::Magenta => b'5',
-            ColorCode::Cyan    => b'6',
-            ColorCode::White   => b'7',
-        }
-    }
+pub mod colors {
+    pub const BLACK: u8   = b'0';
+    pub const RED: u8     = b'1';
+    pub const GREEN: u8   = b'2';
+    pub const YELLOW: u8  = b'3';
+    pub const BLUE: u8    = b'4';
+    pub const MAGENTA: u8 = b'5';
+    pub const CYAN: u8    = b'6';
+    pub const WHITE: u8   = b'7';
 }
-
