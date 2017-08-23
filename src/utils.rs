@@ -83,10 +83,6 @@ impl CanvasUtils for Canvas {
 }
 
 pub trait CanvasUtils {
-    unsafe fn dot_unchecked(&mut self, x: usize, y: usize, pixel: Pixel);
-
-    fn dot(&mut self, x: usize, y: usize, pixel: Pixel);
-    
     unsafe fn rect_unchecked(&mut self, x: usize, y: usize, width: usize, height: usize, filler: Pixel);
     
     fn rect(&mut self, x: usize, y: usize, width: usize, height: usize, filler: Pixel);

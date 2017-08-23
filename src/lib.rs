@@ -4,7 +4,7 @@ pub mod utils;
 mod tests {
     use super::*;
     use utils::*;
-    use colors::*;
+    use color_codes::*;
 
     #[test]
     fn demonstration() {
@@ -13,8 +13,6 @@ mod tests {
         println!("\n{}", can);
        
         can.fill(pix('"', YELLOW, GREEN));
-
-        can.dot(3, 4, pix('*', RED, GREEN));
 
         can.text(1, 1, Color::new(GREEN, BLACK), true, "foohfjhfdjhf54rtgttrtgtr\nbar\nxyzzy\rbaz");
 
@@ -149,7 +147,7 @@ pub enum ColorCode {
     Black, Red, Green, Yellow, Blue, Magenta, Cyan, White,
 }
 
-pub mod colors {
+pub mod color_codes {
     pub const BLACK: u8   = b'0';
     pub const RED: u8     = b'1';
     pub const GREEN: u8   = b'2';
