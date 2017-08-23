@@ -3,7 +3,7 @@ pub mod utils;
 #[cfg(test)]
 mod tests {
     use super::*;
-    use super::utils::*;
+    use utils::*;
     use colors::*;
 
     #[test]
@@ -16,9 +16,9 @@ mod tests {
 
         can.dot(3, 4, pix('*', RED, GREEN));
 
-        can.text("foohfjhfdjhf54rtgttrtgtr\nbar\nxyzzy\rbaz", 1, 1, Color::new(GREEN, BLACK), true);
+        can.text(1, 1, Color::new(GREEN, BLACK), true, "foohfjhfdjhf54rtgttrtgtr\nbar\nxyzzy\rbaz");
 
-        can.text("a\nb\nc", 0, 5, Color::new(YELLOW, GREEN), false);
+        can.text(0, 5, Color::new(YELLOW, GREEN), false, "a\nb\nc");
 
         println!("{}", can);
     }
