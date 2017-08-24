@@ -4,7 +4,7 @@ pub mod utils;
 mod tests {
     use super::*;
     use utils::*;
-    use color_codes::*;
+    use color_code::*;
 
     #[test]
     fn demonstration() {
@@ -147,7 +147,7 @@ pub enum ColorCode {
     Black, Red, Green, Yellow, Blue, Magenta, Cyan, White,
 }
 
-pub mod color_codes {
+pub mod color_code {
     pub const BLACK: u8   = b'0';
     pub const RED: u8     = b'1';
     pub const GREEN: u8   = b'2';
