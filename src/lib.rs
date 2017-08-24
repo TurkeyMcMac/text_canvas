@@ -142,11 +142,6 @@ impl fmt::Display for Color {
     }
 }
 
-#[derive(Clone, Copy)]
-pub enum ColorCode {
-    Black, Red, Green, Yellow, Blue, Magenta, Cyan, White,
-}
-
 pub mod color_code {
     pub const BLACK: u8   = b'0';
     pub const RED: u8     = b'1';
