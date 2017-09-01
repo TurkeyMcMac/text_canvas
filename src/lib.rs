@@ -81,8 +81,10 @@ impl Canvas {
 
     pub fn view(&self, x: usize, y: usize, width: usize, height: usize) -> String {
         self.pixels.chunks(self.width).skip(y).take(height)
-            .map(|chunk| chunk.iter().skip(x).take(width).map(|pixel| pixel.to_string()).collect::<String>())
-            .map(|row| format!("{}\u{001B}[0m\n", row))
+            .map(|chunk| format!("{}\u{001B}[0m\n",
+                chunk.iter().skip(x).take(width)
+                    .map(|pixel| pixel.to_string())
+                    .collect::<String>()))
             .collect::<String>()
     }
 
